@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     
     if @user.save
       flash[:success] = '登録完了'
-      redirect_to root_url
+      redirect_to login_path
     else
       flash.now[:danger] = '登録失敗'
       render :new
