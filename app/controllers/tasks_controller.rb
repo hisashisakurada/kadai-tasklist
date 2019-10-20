@@ -1,9 +1,11 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update ]#destroy削除
+  before_action :set_task, only: [:show, :edit, :update ]
   before_action :correct_user, only: [:destroy, :show, :edit, :update ]
   def index
     if logged_in?
       @tasks = current_user.tasks
+    else
+      redirect_to login_path
     end
   end
 
@@ -15,7 +17,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = current_user.tasks.build(task_params)#.page(params[:page])削除
+    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:success] = 'Task が正常に投稿されました'
       redirect_to root_url
